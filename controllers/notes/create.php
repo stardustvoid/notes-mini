@@ -1,16 +1,12 @@
 <?php
 
-require 'Validator.php';
-
-$config = require 'config.php';
+$config = require basePath('config.php');
 
 $db = new Database($config['database'], $config['dbuser']['username'], $config['dbuser']['password']);
 
-$header = 'Create Note';
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = [];
-
     if (!Validator::string($_POST['body'], 3, 500)) {
         $errors['body'] = 'A body between 3 and 500 chars is required';
     }
@@ -23,4 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-require "views/notes/create.view.php";
+view('notes/create.view.php', [
+    'header' => 'Create Note',
+    'errors' => $errors
+]);
