@@ -1,5 +1,7 @@
 <?php
 
+use Core\Response;
+
 function dd($value)
 {
     echo "<pre>";
@@ -29,6 +31,6 @@ function basePath($path)
 function view($path, $attributes = [])
 {
     extract($attributes);
-    
+
     require basePath('views/' . $path);
 }
