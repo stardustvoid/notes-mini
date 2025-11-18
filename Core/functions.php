@@ -16,6 +16,13 @@ function isUri($value)
     return $_SERVER['REQUEST_URI'] === $value;
 }
 
+function abort($code = Response::NOT_FOUND)
+{
+    http_response_code($code);
+    require basePath("views/{$code}.php");
+    die();
+}
+
 function authorize($condition, $status = Response::FORBIDDEN)
 {
     if (!$condition) {
