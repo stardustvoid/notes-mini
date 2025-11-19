@@ -8,7 +8,8 @@
             <p><?= htmlspecialchars($note['body']) ?></p>
 
 
-            <form class="mt-3" method="POST">
+            <form class="mt-3" method="POST" action="/note">
+                <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="id" value="<?= $note['id'] ?>">
                 <button type="submit" class="text-red-500 text-sm">
                     Delete
