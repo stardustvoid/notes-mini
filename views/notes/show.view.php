@@ -7,14 +7,12 @@
             <p class="mb-6"><a href="/notes" class="text-blue-500 underline">Go back</a></p>
             <p><?= htmlspecialchars($note['body']) ?></p>
 
-
-            <form class="mt-3" method="POST" action="/note">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="id" value="<?= $note['id'] ?>">
-                <button type="submit" class="text-red-500 text-sm">
-                    Delete
-                </button>
-            </form>
+            <footer class="mt-6">
+                <a href="/note/edit?id=<?= $note['id'] ?>"
+                   class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-orange-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-300">
+                    Edit
+                </a>
+            </footer>
         </div>
     </main>
 
