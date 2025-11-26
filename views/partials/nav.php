@@ -13,10 +13,12 @@
                             echo 'aria-current="page"';
                         }; ?>
                            class="<?= isUri('/') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' ?> rounded-md px-3 py-2 text-sm font-medium">Home</a>
-                        <a href="/notes" <?php if (isUri('/notes')) {
-                            echo 'aria-current="page"';
-                        }; ?>
-                           class="<?= isUri('/notes') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' ?> rounded-md px-3 py-2 text-sm font-medium">Notes</a>
+                        <?php if ($_SESSION['user'] ?? false) : ?>
+                            <a href="/notes" <?php if (isUri('/notes')) {
+                                echo 'aria-current="page"';
+                            }; ?>
+                               class="<?= isUri('/notes') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' ?> rounded-md px-3 py-2 text-sm font-medium">Notes</a>
+                        <?php endif; ?>
                         <a href="/about" <?php if (isUri('/about')) {
                             echo 'aria-current="page"';
                         }; ?>
@@ -51,7 +53,14 @@
                                      alt="" class="size-8 rounded-full outline -outline-offset-1 outline-white/10"/>
                             </button>
                         <?php else : ?>
-                            <a href="/register" class="text-white">Register</a>
+                            <a href="/register" <?php if (isUri('/register')) {
+                                echo 'aria-current="page"';
+                            }; ?>
+                               class="<?= isUri('/register') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' ?> rounded-md px-3 py-2 text-sm font-medium">Register</a>
+                            <a href="/login" <?php if (isUri('/login')) {
+                                echo 'aria-current="page"';
+                            }; ?>
+                               class="<?= isUri('/login') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' ?> rounded-md px-3 py-2 text-sm font-medium">Login</a>
                         <?php endif; ?>
 
                         <el-menu anchor="bottom end" popover
@@ -61,9 +70,16 @@
                                 profile</a>
                             <a href="#"
                                class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Settings</a>
-                            <a href="#"
-                               class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">Sign
-                                out</a>
+                            <?php if ($_SESSION['user'] ?? false) : ?>
+                                <form method="POST" action="/session">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button
+                                            class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:outline-hidden">
+                                        Sign
+                                        out
+                                    </button>
+                                </form>
+                            <?php endif; ?>
                         </el-menu>
                     </el-dropdown>
                 </div>
