@@ -7,8 +7,6 @@ use Core\Validator;
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// validate email and password, return to form if not valid
-
 $errors = [];
 
 if (!Validator::email($email)) {
@@ -25,8 +23,6 @@ if (!empty($errors)) {
     ]);
 }
 
-// chek if user exists in database and if true, redirect to login page
-
 $db = App::resolve(Database::class);
 
 $user = $db->query('select * from users where email = :email', [
@@ -37,8 +33,6 @@ if ($user) {
     header('location: /');
     die();
 }
-
-// if user doesn't exist, save user to database and redirect to main page
 
 $db->query('insert into users (email, password) values (:email, :password)', [
     ':email' => $email,
